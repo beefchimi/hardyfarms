@@ -1,0 +1,54 @@
+{
+  "name": "hardyfarms",
+  "version": "0.0.1",
+  "description": "Hyper local plants and produce!",
+  "author": "Curtis Dulmage",
+  "license": "UNLICENSED",
+  "keywords": [
+    "Curtis Dulmage",
+    "Carson Hardy",
+    "Farming"
+  ],
+  "homepage": "https://hellohardy.com/",
+  "bugs": {
+    "url": "https://github.com/beefchimi/hardyfarms/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/beefchimi/hardyfarms.git"
+  },
+  "type": "module",
+  "engines": {
+    "node": ">=22.6.0",
+    "npm": ">=10.8.0"
+  },
+  "scripts": {
+    "clean": "rm -rf dev-dist && rm -rf dist && rm -rf node_modules/.cache && rm -rf node_modules/.vite",
+    "nuke": "npm run clean && rm -rf node_modules && rm -rf package-lock.json && npm cache clean --force",
+    "astro": "astro",
+    "start": "astro dev",
+    "start:host": "astro dev --host",
+    "build": "npm run clean && astro check && astro build",
+    "preview": "astro preview",
+    "lint": "eslint .",
+    "lint:fix": "npm run lint -- --fix",
+    "format": "prettier --check .",
+    "format:fix": "prettier --write .",
+    "check": "astro check",
+    "test": "echo 'There is no testing suite set up for this app.'"
+  },
+  "dependencies": {
+    "@astrojs/check": "^0.9.3",
+    "astro": "^4.15.8",
+    "typescript": "^5.6.2"
+  },
+  "devDependencies": {
+    "@typescript-eslint/parser": "^8.6.0",
+    "eslint": "^8.57.0",
+    "eslint-plugin-astro": "^1.2.4",
+    "eslint-plugin-jsx-a11y": "^6.10.0",
+    "lightningcss": "^1.27.0",
+    "prettier": "^3.3.3",
+    "prettier-plugin-astro": "^0.14.1"
+  }
+}
