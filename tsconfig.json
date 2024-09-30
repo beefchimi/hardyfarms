@@ -3,6 +3,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
+      "@constants": ["src/constants"],
       "@assets/*": ["src/assets/*"],
       "@components/*": ["src/components/*"],
       "@data/*": ["src/data/*"],
@@ -12,5 +13,6 @@
       "@sections/*": ["src/sections/*"],
       "@styles/*": ["src/styles/*"]
     }
-  }
+  },
+  "exclude": ["scrap"]
 }

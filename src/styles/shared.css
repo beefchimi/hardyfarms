@@ -4,8 +4,20 @@
   manually import them for each use.
 */
 
-@custom-media --before-tablet (width < 768px);
-@custom-media --before-desktop (width < 1440px);
+/*
+  TODO: Simplify values once this bug is solved:
+  https://github.com/parcel-bundler/lightningcss/issues/817
+*/
+@custom-media --before-phablet (width <= 599px);
+@custom-media --before-tablet (width <= 767px);
+@custom-media --before-desktop (width <= 1079px);
+@custom-media --before-wide (width <= 1439px);
+@custom-media --before-ultrawide (width <= 1919px);
+
+@custom-media --min-phablet (width >= 600px);
 @custom-media --min-tablet (width >= 768px);
-@custom-media --min-desktop (width >= 1440px);
+@custom-media --min-desktop (width >= 1080px);
+@custom-media --min-wide (width >= 1440px);
+@custom-media --min-ultrawide (width >= 1920px);
+
 @custom-media --max-phone-height (height <= 480px);

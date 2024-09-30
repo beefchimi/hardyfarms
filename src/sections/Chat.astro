@@ -1,0 +1,149 @@
+---
+import Action from '@components/Action.astro';
+
+const currentYear = new Date().getFullYear();
+---
+
+<footer id="SectionChat" class="SectionChat" data-section="chat">
+  <div class="InteriorWrapper">
+    <div class="Interior">
+      <h2 class="text-head text-head--2 Title">Come by and chat</h2>
+      <p class="text-subhead Subtitle">
+        Have questions about the farm? If you can’t find us at your local
+        Farmer’s Market, just reach out any time!
+      </p>
+
+      <ul class="Actions">
+        <li class="ActionItem">
+          <Action
+            id="FooterActionEmail"
+            aria-label="Get in touch with Carson Hardy"
+            disabled>Email Farmer Carson ➞</Action
+          >
+        </li>
+        <li class="ActionItem">
+          <Action
+            id="FooterActionFollow"
+            aria-label="Visit our Instagram page and follow us"
+            url="https://www.instagram.com/growninsaanich/"
+            external>Follow on Instagram ➞</Action
+          >
+        </li>
+      </ul>
+
+      <p class="text-subtext Legal">
+        &copy; Hello Hardy Farms {currentYear} &mdash; All rights reserved
+      </p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  @import '@styles/shared.css';
+
+  @keyframes chatWaveFlow {
+    from {
+      background-position-x: 0;
+    }
+
+    to {
+      background-position-x: calc(var(--wave-width) / 2);
+    }
+  }
+
+  .SectionChat {
+    --wave-width: 144rem;
+    --wave-height: 16rem;
+    --wave-padding-top: clamp(3.4rem, 11.1111%, var(--wave-height));
+
+    /* Design system overrides */
+    --selection-primary: var(--color-myrtle);
+    --selection-secondary: var(--color-honeydew);
+    --action-color-primary: var(--color-honeydew);
+    --action-color-secondary: var(--color-myrtle);
+
+    z-index: var(--index-5);
+    position: relative;
+    text-align: center;
+    color: var(--color-honeydew);
+
+    /* Wave Offsets */
+    margin-top: calc(clamp(1.7rem, 5.55%, calc(var(--wave-height) / 2)) * -1);
+    padding-top: var(--wave-padding-top);
+
+    /* Wave Background */
+    &::before {
+      content: '';
+      display: block;
+      position: absolute;
+      padding-top: var(--wave-padding-top);
+      width: 100%;
+      background-image: url('../assets/patterns/wave-big.svg');
+      background-repeat: repeat-x;
+
+      /*
+        These very small offsets are necessary in order to avoid subpixel gaps.
+        SVG asset uses `preserveAspectRatio="none"` to allow stretching.
+      */
+      translate: 0 -98%;
+      scale: 1.1 1;
+      animation: chatWaveFlow 24s ease-in-out infinite both alternate;
+
+      /* interaction-disable */
+      pointer-events: none;
+      touch-action: none;
+      user-select: none;
+    }
+  }
+
+  .InteriorWrapper {
+    padding: 4rem 2rem;
+    background-color: var(--color-myrtle);
+
+    @media (--min-wide) {
+      padding: 8rem 4rem;
+    }
+  }
+
+  .Interior {
+    margin: 0 auto;
+    max-width: 96rem;
+  }
+
+  .Title {
+  }
+
+  .Subtitle {
+    margin-top: 1em;
+  }
+
+  .Legal {
+    font-weight: var(--outfit-medium);
+  }
+
+  .Actions {
+    display: grid;
+    justify-content: center;
+    gap: 1.6rem;
+    margin-top: 6.4rem;
+    margin-bottom: 8rem;
+
+    @media (--min-tablet) {
+      grid-auto-flow: column;
+      gap: 4rem;
+    }
+
+    @media (--min-desktop) {
+      margin-top: 8rem;
+      margin-bottom: 16rem;
+    }
+
+    @media (--min-wide) {
+      margin-top: 12rem;
+      margin-bottom: 24rem;
+    }
+  }
+
+  .ActionItem {
+  }
+</style>

@@ -1,3 +1,5 @@
+/* --- Interaction --- */
+
 .focus-ring {
   position: relative;
 
@@ -7,8 +9,8 @@
     display: block;
     position: absolute;
     inset: var(--focus-offset);
-    border-radius: var(--radius-looser);
-    background-color: var(--color-highlight);
+    border-radius: 99rem;
+    box-shadow: 0 0 0 0.3rem var(--color-crayola);
     opacity: 0;
     pointer-events: none;
     transition: opacity var(--speed) var(--ease);
@@ -17,6 +19,18 @@
   &:focus-visible::before {
     opacity: 1;
   }
+}
+
+.interaction-disable {
+  pointer-events: none;
+  touch-action: none;
+  user-select: none;
+}
+
+.interaction-enable {
+  pointer-events: unset;
+  touch-action: unset;
+  user-select: unset;
 }
 
 /* --- Media --- */

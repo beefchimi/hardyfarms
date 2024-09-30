@@ -1,0 +1,139 @@
+---
+import {Image} from 'astro:assets';
+
+import imgPour from '@assets/img/farm-pour.jpg';
+import Action from '@components/Action.astro';
+---
+
+<section id="SectionFind" class="SectionFind" data-section="find">
+  <div class="Interior">
+    <div class="Content">
+      <h2 class="text-head text-head--2 Title">
+        <span class="text-block">Where To</span>
+        <span class="text-block">Find Us</span>
+      </h2>
+
+      <p class="text-subhead Subtitle">
+        Our goal is to produce the Island’s highest-quality plants and produce.
+      </p>
+
+      <p class="text-p Text">
+        We want to make it as easy and affordable as possible for everyone on
+        the Island to have access to what we grow.
+      </p>
+
+      <p class="text-p Text">
+        As our farm expands, so will our ability to meet our customers where
+        they need us. Keep an eye on this space for more details about our
+        upcoming online store.
+      </p>
+
+      <p class="text-p Text">
+        For now, you can find Hardy Farms at various Farmers’ Markets across
+        Vancouver Island. We announce every appearance on our Instagram page.
+      </p>
+
+      <p class="text-p Text">
+        Depending on your location, you may even be eligible for local delivery.
+      </p>
+
+      <div class="Cta">
+        <Action id="FindActionInquire">Inquire about local delivery ➞</Action>
+      </div>
+    </div>
+
+    <div class="ImageWrapper">
+      <Image src={imgPour} alt="TODO: Alt text" />
+    </div>
+  </div>
+</section>
+
+<style>
+  @import '@styles/shared.css';
+
+  .SectionFind {
+    /* Design System Overrides */
+    --selection-primary: var(--color-lavender);
+    --selection-secondary: var(--color-violet);
+    --action-color-primary: var(--color-violet);
+    --action-color-secondary: var(--color-lavender);
+
+    z-index: var(--index-1);
+    position: relative;
+    color: var(--color-violet);
+    background-color: var(--color-lavender);
+  }
+
+  .Interior {
+    position: relative;
+    margin: 0 auto;
+    max-width: 148rem;
+  }
+
+  .Content {
+    padding: 6.4rem 2rem 4rem 2rem;
+
+    @media (--min-tablet) {
+      width: 50%;
+      padding-bottom: 6.4rem;
+    }
+
+    @media (--min-wide) {
+      padding: 10rem 4rem 12rem 4rem;
+    }
+  }
+
+  .Title {
+  }
+
+  .Subtitle {
+    margin-top: 1em;
+    margin-bottom: 1em;
+  }
+
+  .Text + .Text {
+    margin-top: 1em;
+  }
+
+  .Cta {
+    margin-top: 2rem;
+
+    @media (--min-wide) {
+      margin-top: 3.2rem;
+    }
+  }
+
+  .ImageWrapper {
+    position: relative;
+    bottom: -0.2rem;
+    margin-left: 2rem;
+    margin-right: 2rem;
+    aspect-ratio: 1.2;
+    border-radius: 2rem 2rem 0 0;
+    overflow: hidden;
+
+    @media (--min-tablet) {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      width: 50%;
+      height: auto;
+      margin: auto 0;
+      aspect-ratio: unset;
+      border-radius: unset;
+      border-top-left-radius: 2rem;
+    }
+
+    @media (--min-desktop) {
+      top: 0;
+      aspect-ratio: 1;
+      border-radius: 4rem;
+      box-shadow: 1.6rem 1.6rem 0 0 var(--color-crayola);
+    }
+
+    > img {
+      height: auto;
+      object-fit: cover;
+    }
+  }
+</style>

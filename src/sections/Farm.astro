@@ -1,0 +1,325 @@
+---
+import {Image} from 'astro:assets';
+
+import imgPour from '@assets/img/farm-pour.jpg';
+import Blob from '@components/Blob.astro';
+import ClipBlob from '@components/ClipBlob.astro';
+
+const BlobId = 'FarmClipBlob';
+---
+
+<section id="SectionFarm" class="SectionFarm" data-section="farm">
+  <div class="Interior">
+    <div class="interaction-disable blob-wrapper BlobFront">
+      <Blob shape="jelly1" animate stretch />
+    </div>
+
+    <div class="interaction-disable blob-wrapper BlobBack">
+      <Blob shape="goo1" animate stretch />
+    </div>
+
+    <div class="Content">
+      <h2 class="text-head text-head--2 Title">
+        <span class="text-block">Farming</span>
+        <span class="text-block">in Saanich</span>
+      </h2>
+
+      <p class="text-p Text">
+        <strong>Hello Hardy Farms started as a hobby project.</strong> Farmer Carson
+        grew vegetables in the front yard of his family’s Saanich home. The project
+        soon grew to include a dedicated farm space in Blenkinsop Valley. Now, Hello
+        Hardy Farms has 10 acres dedicated to growing various carnivorous plants
+        and exotic produce.
+      </p>
+      <p class="text-p Text">
+        Carson needs to write some content for me so I have a better sense of
+        what I can add to this section. Once provided, I will revisit this
+        design and update it with better content. Until then, placeholder text!
+      </p>
+    </div>
+
+    <div class="ImageWrapper">
+      <ClipBlob id={BlobId} animate />
+      <Image src={imgPour} alt="TODO: Alt text" />
+    </div>
+  </div>
+</section>
+
+<style define:vars={{urlBlobId: `url('#${BlobId}')`}}>
+  @import '@styles/shared.css';
+
+  @keyframes farmWaveFlow {
+    from {
+      background-position-x: 0;
+    }
+
+    to {
+      background-position-x: var(--farm-wave-width);
+    }
+  }
+
+  .SectionFarm {
+    --farm-wave-width: 36rem;
+    --farm-wave-height: 4rem;
+    --farm-blob-offset-y: 4rem;
+
+    /* Design System Overrides */
+    --selection-primary: var(--color-naples);
+    --selection-secondary: var(--color-coyote);
+
+    z-index: var(--index-2);
+    position: relative;
+    color: var(--color-coyote);
+
+    /* Wave + Blob Offsets */
+    margin-top: var(--farm-wave-height);
+
+    @media (--before-desktop) {
+      background-color: var(--color-naples);
+    }
+
+    @media (--min-desktop) {
+      --farm-wave-width: 144rem;
+      --farm-wave-height: 16rem;
+      z-index: var(--index-3);
+      margin-top: var(--farm-blob-offset-y);
+    }
+
+    @media (--min-wide) {
+      --farm-blob-offset-y: 6.4rem;
+    }
+
+    @media (--min-ultrawide) {
+      --farm-blob-offset-y: 10rem;
+    }
+
+    /* Wave Backgrounds */
+
+    &::before,
+    &::after {
+      content: '';
+      display: block;
+      position: absolute;
+      width: 100%;
+      height: var(--farm-wave-height);
+      background-image: var(--url-wave-medium-naples);
+      background-size: var(--farm-wave-width) var(--farm-wave-height);
+      background-repeat: repeat-x;
+      /* interaction-disable */
+      pointer-events: none;
+      touch-action: none;
+      user-select: none;
+    }
+
+    &::before {
+      top: calc(var(--farm-wave-height) * -1);
+      animation: farmWaveFlow 60s ease-in-out alternate infinite both;
+
+      @media (--min-desktop) {
+        /*
+          The top wave at this width will be hidden behind the Blobs,
+          so we might as well disable it.
+        */
+        content: none;
+        display: none;
+        top: unset;
+        animation-play-state: paused;
+      }
+
+      @media (--min-wide) {
+        content: '';
+        display: block;
+        bottom: 50%;
+        background-image: url('../assets/patterns/wave-big.svg');
+        animation-play-state: running;
+      }
+    }
+
+    &::after {
+      /*
+        Bottom facing wave.
+        The current design has this <section /> beneath the next sibling <section />,
+        which overlaps it. Therefor, this bottom wave would not be visible.
+
+        @media (--before-desktop) {
+          bottom: calc(var(--farm-wave-height) * -1);
+          background-position-x: calc(var(--farm-wave-width) / 2);
+          scale: 1 -1;
+        }
+      */
+
+      /* Half-height solid color background */
+      @media (--min-desktop) {
+        background: unset;
+        bottom: 0;
+        height: 52%;
+        background-color: var(--color-myrtle);
+      }
+    }
+  }
+
+  .Interior {
+    position: relative;
+    margin: 0 auto;
+    max-width: 152rem;
+  }
+
+  .Content {
+    z-index: 13;
+    position: relative;
+    padding: 4rem 2rem;
+
+    @media (--min-tablet) {
+      width: 50%;
+      padding-bottom: 8rem;
+    }
+
+    @media (--min-desktop) {
+      padding: 6.4rem 2rem;
+    }
+
+    @media (--min-wide) {
+      padding: 8rem 4rem;
+    }
+  }
+
+  .Text {
+    margin-top: 1em;
+    font-weight: var(--outfit-medium);
+
+    @media (--min-wide) {
+      font-size: 2.4rem;
+    }
+
+    > strong {
+      font-weight: var(--outfit-semi);
+    }
+  }
+
+  /* --- Blobs --- */
+
+  .blob-wrapper {
+    position: absolute;
+    display: grid;
+    top: calc(var(--farm-blob-offset-y) * -1);
+    bottom: calc(var(--farm-blob-offset-y) * -1);
+    width: 80vw;
+
+    @media (--before-desktop) {
+      display: none;
+    }
+
+    @media (--min-wide) {
+      width: 100%;
+    }
+  }
+
+  /* The child SVGs should scale proportionally based on the parent height. */
+  .blob-wrapper :global(svg) {
+    @media (--min-wide) {
+      width: auto;
+    }
+  }
+
+  .blob-wrapper :global(path) {
+    /*
+      Not sure if this is really necessary... but,
+      prevent animations when Blobs are not rendered.
+    */
+    @media (--before-desktop) {
+      animation: none !important;
+    }
+  }
+
+  .BlobFront {
+    z-index: 11;
+    left: -20%;
+    color: var(--color-naples);
+  }
+
+  .BlobBack {
+    z-index: 10;
+    right: -20%;
+    justify-items: end;
+    color: var(--color-salmon);
+  }
+
+  .BlobBack :global(path) {
+    animation-duration: 123s;
+  }
+
+  /* --- Image Blob --- */
+
+  .ImageWrapper {
+    z-index: 12;
+    position: relative;
+    aspect-ratio: 1.2;
+    margin-left: 2rem;
+    margin-right: 2rem;
+    border-radius: 2rem 2rem 0 0;
+    overflow: hidden;
+
+    @media (--min-tablet) {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 50%;
+      height: auto;
+      margin: unset;
+      aspect-ratio: unset;
+      border-radius: unset;
+      border-top-left-radius: 4rem;
+    }
+
+    @media (--min-desktop) {
+      top: -16%;
+      bottom: -16%;
+      right: -16%;
+      width: 66%;
+      overflow: unset;
+      border-top-left-radius: unset;
+      /* filter: drop-shadow(1.6rem 1.6rem var(--color-xanthous)); */
+    }
+
+    > img {
+      height: auto;
+      object-fit: cover;
+      object-position: bottom;
+
+      @media (--min-desktop) {
+        clip-path: var(--urlBlobId);
+      }
+
+      /*
+      If we prefer to go back to a rounded-square image:
+
+      @media (--min-desktop) {
+        top: -8%;
+        bottom: -8%;
+        width: 60%;
+        right: -10%;
+        box-shadow: 1.6rem 1.6rem 0 0 var(--color-naples);
+        border-radius: 6.4rem;
+        overflow: hidden;
+      }
+      */
+    }
+  }
+
+  .ImageWrapper :global(svg) {
+    @media (--before-desktop) {
+      display: none;
+    }
+  }
+
+  .ImageWrapper :global(path) {
+    /*
+      Not sure if this is really necessary... but,
+      prevent animations when ClipBlobs are not rendered.
+    */
+    @media (--before-desktop) {
+      animation: none !important;
+    }
+  }
+</style>

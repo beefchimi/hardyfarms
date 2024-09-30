@@ -1,0 +1,132 @@
+---
+import {SECTIONS} from '@constants';
+
+// This component is really more of a "section", as it is meant
+// to only ever be rendered once on a Page.
+---
+
+<nav class="Nav">
+  <ol class="NavMenu">
+    {
+      SECTIONS.map((label) => (
+        <li class="NavItem">
+          <a
+            href={`#Section${label}`}
+            class="focus-ring NavAction"
+            aria-label={`Scroll to section: ${label}`}
+          >
+            {label}
+          </a>
+        </li>
+      ))
+    }
+  </ol>
+</nav>
+
+<style>
+  @import '@styles/shared.css';
+
+  html {
+    --nav-border-color: transparent;
+
+    &[data-has-scrolled='true'] {
+      --nav-border-color: var(--color-myrtle);
+    }
+  }
+
+  .Nav {
+    --nav-max-width: 80rem;
+    --nav-padding-x: 1.2rem;
+    --nav-padding-y: 0.8rem;
+    --nav-font-size: 2rem;
+
+    z-index: var(--index-6);
+    position: fixed;
+    top: 2rem;
+    left: 2rem;
+    right: 2rem;
+
+    /* No mobile nav */
+    @media (--before-tablet) {
+      display: none;
+    }
+
+    @media (--min-desktop) {
+      --nav-max-width: 96rem;
+      --nav-padding-x: 1.6rem;
+      --nav-padding-y: 1.2rem;
+      --nav-font-size: 2.4rem;
+    }
+  }
+
+  .NavMenu {
+    display: grid;
+    grid-auto-flow: column;
+    align-items: center;
+    justify-items: center;
+    justify-content: space-between;
+    margin: 0 auto;
+    padding: 0.4rem;
+    max-width: var(--nav-max-width);
+    width: 100%;
+    border-radius: 99rem;
+    background-color: var(--color-honeydew);
+    box-shadow: 0 0 0 0.4rem var(--nav-border-color);
+    transition: box-shadow var(--speed-fast) var(--ease);
+  }
+
+  .NavItem {
+  }
+
+  .NavAction {
+    display: block;
+    padding: var(--nav-padding-y) var(--nav-padding-x);
+    font-size: var(--nav-font-size);
+    font-weight: var(--outfit-semi);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-myrtle);
+    background-color: transparent;
+    border-radius: 99rem;
+    transition-property: color, background-color;
+    transition-duration: var(--speed);
+    transition-timing-function: var(--ease);
+
+    /* Counter-act the letter-spacing on the last letter */
+    text-indent: 0.2em;
+
+    &:hover {
+      color: var(--color-honeydew);
+      background-color: var(--color-myrtle);
+    }
+  }
+
+  /*
+    In case we need finer control over when to apply the styling:
+
+    html[data-active-section='farm']:not([data-has-scrolled='false'])
+      .NavItem:nth-child(2) .NavAction,
+  */
+
+  html[data-active-section='hello'][data-has-scrolled='true']
+    .NavItem:nth-child(1)
+    .NavAction,
+  html[data-active-section='farm'] .NavItem:nth-child(2) .NavAction,
+  html[data-active-section='grow'] .NavItem:nth-child(3) .NavAction,
+  html[data-active-section='find'] .NavItem:nth-child(4) .NavAction,
+  html[data-active-section='chat'] .NavItem:nth-child(5) .NavAction {
+    color: var(--color-honeydew);
+    background-color: var(--color-myrtle);
+  }
+</style>
+
+<script>
+  import {HELLO_WORDMARK_ID} from '@constants';
+  import {StickyNav} from '@scripts/StickyNav';
+
+  // Height of nav is `56px` + top position is `20px`.
+  const navBottom = (56 + 20) * -1;
+  const stickyNavInstance = new StickyNav(`#${HELLO_WORDMARK_ID}`, navBottom);
+
+  stickyNavInstance.run();
+</script>

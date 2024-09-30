@@ -87,6 +87,8 @@ meter {
 :root {
   --font-stack-sans-serif: Avenir, 'Avenir Next LT Pro', Montserrat, Corbel,
     'URW Gothic', source-sans-pro, sans-serif;
+  --font-stack-serif: Didot, 'Bodoni MT', 'Noto Serif Display', 'URW Palladio L',
+    P052, Sylfaen, serif;
   --font-stack-monospace: ui-monospace, 'Cascadia Code', 'Source Code Pro',
     Menlo, Consolas, 'DejaVu Sans Mono', monospace;
 }
@@ -136,6 +138,11 @@ picture,
 video {
   display: block;
   max-width: 100%;
+}
+
+img {
+  /* height: auto; */
+  height: 100%;
 }
 
 input,

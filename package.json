@@ -30,6 +30,7 @@
     "start:host": "astro dev --host",
     "build": "npm run clean && astro check && astro build",
     "preview": "astro preview",
+    "preview:host": "astro preview --host",
     "lint": "eslint .",
     "lint:fix": "npm run lint -- --fix",
     "format": "prettier --check .",
@@ -39,7 +40,10 @@
   },
   "dependencies": {
     "@astrojs/check": "^0.9.3",
+    "@fontsource-variable/outfit": "^5.1.0",
     "astro": "^4.15.8",
+    "astro-icon": "^1.1.1",
+    "beeftools": "^0.1.7",
     "typescript": "^5.6.2"
   },
   "devDependencies": {

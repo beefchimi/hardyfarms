@@ -1,0 +1,66 @@
+---
+import Layout from '@layouts/Layout.astro';
+---
+
+<Layout id="Page404" title="Page does not exist | Hello Hardy Farms">
+  <main id="Main404">
+    <section id="Section404" class="section">
+      <article class="section-interior">
+        <div class="ErrorContent">
+          <h1 class="heading heading--1">Error 404</h1>
+          <h2 class="heading heading--2">
+            You have encountered a catastrophic error. Please evacuate the
+            internet.
+          </h2>
+
+          <h4 class="heading heading--4">
+            <a href="/" class="heading-link" title="Return to home page"
+              >Emergency Eject</a
+            >
+          </h4>
+        </div>
+      </article>
+    </section>
+  </main>
+</Layout>
+
+<style>
+  @property --color-rainbow {
+    initial-value: 0deg;
+    inherits: false;
+    syntax: '<angle>';
+  }
+
+  @keyframes rainbowSpin {
+    0%,
+    10% {
+      --color-rainbow: 0deg;
+    }
+    100% {
+      --color-rainbow: 360deg;
+    }
+  }
+
+  :global(#Main404) {
+    --color-portfolio: hsl(var(--color-rainbow) 100% 50%);
+    animation: rainbowSpin 4s linear infinite both;
+  }
+
+  .ErrorContent {
+    display: grid;
+    justify-content: center;
+    gap: var(--space-tight);
+    padding: var(--space);
+    text-align: center;
+    max-width: 90rem;
+
+    /* Page load (fade-in) */
+    position: relative;
+    z-index: var(--index-7);
+    animation: fadeIn var(--speed-slower) var(--speed-slow) var(--ease) both;
+  }
+
+  .ErrorContent h4 a {
+    font-weight: 700;
+  }
+</style>

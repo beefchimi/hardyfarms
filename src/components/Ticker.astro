@@ -1,0 +1,103 @@
+---
+interface Props {
+  animate?: boolean;
+}
+
+const {animate = false} = Astro.props;
+
+const TICKS = [
+  'Hello Hardy Farms',
+  'Find out more',
+  'Check Instagram',
+  'Upcoming farmers’ markets',
+  'Hyper local',
+  'Plants & Produce',
+];
+
+// Rather than write some complicated JS that tracks `window > width` on
+// resize and updates the HTML list length accordingly... We simply double
+// the number of items rendered and repeat the animation once translated
+// by 50% it's width. While technically you could have a very wide browser
+// its extremely unlikely the window ever exceeds this computed width.
+const items = [...TICKS, ...TICKS];
+---
+
+<div class:list={['Ticker', {animate}]}>
+  <ul class="TickerList">
+    {
+      items.map((label) => (
+        <li class="TickerItem">
+          <p class="TickerLabel">{label}</p>
+        </li>
+      ))
+    }
+  </ul>
+</div>
+
+<style>
+  @import '@styles/shared.css';
+
+  @keyframes tickerTrack {
+    from {
+      translate: 0%;
+    }
+
+    to {
+      translate: -50%;
+    }
+  }
+
+  .Ticker {
+    --ticker-padding-y: 0.6rem;
+    --ticker-font-size: 3.2rem;
+
+    position: relative;
+    padding-top: var(--ticker-padding-y);
+    padding-bottom: var(--ticker-padding-y);
+    width: 100%;
+    background-color: var(--color-myrtle);
+    overflow: hidden;
+
+    @media (--min-tablet) {
+      --ticker-font-size: 4.8rem;
+      --ticker-padding-y: 1rem;
+    }
+
+    @media (--min-desktop) {
+      --ticker-font-size: 6.4rem;
+    }
+  }
+
+  .animate {
+    height: calc(var(--ticker-padding-y) * 2 + var(--ticker-font-size));
+
+    & .TickerList {
+      position: absolute;
+      justify-content: start;
+      justify-items: start;
+      animation: tickerTrack 60s infinite linear;
+    }
+  }
+
+  .TickerList {
+    display: grid;
+    grid-auto-flow: column;
+    justify-content: center;
+    justify-items: center;
+  }
+
+  .TickerItem {
+  }
+
+  .TickerLabel {
+    font-size: var(--ticker-font-size);
+    color: var(--color-honeydew);
+    white-space: nowrap;
+
+    &::before {
+      content: '•';
+      margin-left: 0.2em;
+      margin-right: 0.2em;
+    }
+  }
+</style>

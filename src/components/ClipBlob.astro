@@ -1,0 +1,120 @@
+---
+import {
+  clipBlobSquarePath,
+  type ClipBlobSquareShape,
+} from '@assets/paths/clip-blobs-square';
+import {
+  clipBlobWidePath,
+  type ClipBlobWideShape,
+} from '@assets/paths/clip-blobs-wide';
+
+type AllShapes = ClipBlobSquareShape | ClipBlobWideShape;
+
+interface Props {
+  id?: string;
+  shape?: AllShapes;
+  animate?: boolean | 'simple';
+}
+
+// This SVG is crafted specifically to be:
+// 1. Rendered only once within the DOM.
+//  - If rendered a 2nd time, a unique `id` should be provided.
+// 2. Rendered as an invisible element with no layout dimensions.
+// 3. Referenced via CSS `clip-path: url(#id);`.
+// 4. Size is flexible and will fit the `width / height` of its parent.
+export const DEFAULT_CLIP_BLOB_ID = 'ClipBlob';
+
+const {
+  id = DEFAULT_CLIP_BLOB_ID,
+  shape = 'square1',
+  animate = false,
+} = Astro.props;
+
+function getPathsForShape(shape: AllShapes) {
+  if (shape.startsWith('square')) {
+    return clipBlobSquarePath;
+  } else {
+    return clipBlobWidePath;
+  }
+}
+
+const allPathData = {
+  ...clipBlobSquarePath,
+  ...clipBlobWidePath,
+};
+
+const initialPath = allPathData[shape];
+const subsetPaths = Object.values(getPathsForShape(shape));
+
+// CSS Custom Properties
+const blobPath1 = `path('${subsetPaths[0]}')`;
+const blobPath2 = `path('${subsetPaths[1]}')`;
+const blobPath3 = `path('${subsetPaths[2]}')`;
+const blobPath4 = `path('${subsetPaths[3]}')`;
+---
+
+<div
+  class:list={[
+    'visually-hidden',
+    'ClipBlob',
+    {animate: Boolean(animate), simple: animate === 'simple'},
+  ]}
+>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 1 1"
+    width="0"
+    height="0"
+    preserveAspectRatio="none"
+  >
+    <clipPath id={id} clipPathUnits="objectBoundingBox">
+      <path d={initialPath}></path>
+    </clipPath>
+  </svg>
+</div>
+
+<style define:vars={{blobPath1, blobPath2, blobPath3, blobPath4}}>
+  @keyframes clipBlobMorph {
+    0%,
+    100% {
+      d: var(--blobPath1);
+    }
+    25% {
+      d: var(--blobPath2);
+    }
+    50% {
+      d: var(--blobPath3);
+    }
+    75% {
+      d: var(--blobPath4);
+    }
+  }
+
+  @keyframes clipBlobMorphSimple {
+    0% {
+      d: var(--blobPath1);
+    }
+    100% {
+      d: var(--blobPath4);
+    }
+  }
+
+  .ClipBlob {
+  }
+
+  .animate {
+    /* Long-hand syntax to allow for easier individual overrides. */
+    > svg path {
+      animation-name: clipBlobMorph;
+      animation-duration: 60s;
+      animation-timing-function: ease-in-out;
+      animation-iteration-count: infinite;
+      animation-fill-mode: both;
+    }
+
+    &.simple > svg path {
+      animation-name: clipBlobMorphSimple;
+      animation-direction: alternate;
+    }
+  }
+</style>

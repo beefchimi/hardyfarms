@@ -2,7 +2,7 @@ import eslintPluginAstro from 'eslint-plugin-astro';
 
 export default [
   // Astro likely already configured our `ignores`.
-  // { ignores: ['coverage/**', 'dev-dist/**', 'dist/**'], },
+  // { ignores: ['coverage/**', 'dev-dist/**', 'dist/**', 'scrap/**'], },
 
   // Extend configs here:
   ...eslintPluginAstro.configs.recommended,

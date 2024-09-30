@@ -1,50 +1,101 @@
 ---
+// FontSource packages cannot be imported within CSS.
+// Supports weights `100-900`.
+import '@fontsource-variable/outfit';
+
+import '@styles/reset.css';
+import '@styles/global.css';
+import '@styles/utility.css';
+
 interface Props {
-	title: string;
+  id: string;
+  title?: string;
 }
 
-const { title } = Astro.props;
+const {id, title = 'Hello Hardy Farms'} = Astro.props;
+
+// TODO: Create Google analytics account.
+// const G_ID = 'G-4G2VKG5NK2';
+
+const DESCRIPTION = 'Hyper local plants and produce from Vancouver Island';
+const PERMALINK = new URL(Astro.url.pathname, Astro.site).href;
+const OG_IMAGE = new URL('/social.png', Astro.site).href;
 ---
 
 <!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="description" content="Astro description" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
-	</head>
-	<body>
-		<slot />
-	</body>
+<html lang="en" data-has-scrolled="false" data-active-section="">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <meta name="format-detection" content="telephone=no" />
+
+    <title>{title}</title>
+
+    <!-- SEO meta -->
+    <meta name="description" content={DESCRIPTION} />
+    <meta
+      name="keywords"
+      content="Hardy, Farms, Farming, Vancouver, Island, Canada, Local, Produce"
+    />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- iOS browser chrome looks better without this -->
+    <!-- <meta name="theme-color" content="#8c54c1" /> -->
+
+    <!-- Windows meta -->
+    <!--
+      <meta name="msapplication-TileImage" content="/icon-144x144.png">
+      <meta name="msapplication-TileColor" content="#8c54c1">
+    -->
+
+    <!-- Favicons (see: https://vite-pwa-org.netlify.app/assets-generator) -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Open Graph meta -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="hardyfarms.com" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={DESCRIPTION} />
+    <meta property="og:image" content={OG_IMAGE} />
+    <meta property="og:url" content={PERMALINK} />
+
+    <!-- Twitter meta -->
+    <!-- TODO: Get Twitter info from Carson
+      <meta property="twitter:card" content="summary_large_image" />
+      <meta property="twitter:domain" content="hardyfarms.com" />
+      <meta property="twitter:url" content="https://hardyfarms.com/" />
+      <meta property="twitter:site" content="@beefchimi" />
+      <meta property="twitter:account_id" content="358226505" />
+      <meta property="twitter:title" content={title} />
+      <meta property="twitter:description" content={DESCRIPTION} />
+      <meta property="twitter:image" content={OG_IMAGE} />
+    -->
+
+    <!-- Google tag (gtag.js) -->
+    <!-- TODO: Setup GA
+      <script
+        is:inline
+        async
+        src={`https://www.googletagmanager.com/gtag/js?id=${G_ID}`}></script>
+      <script is:inline>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+          dataLayer.push(arguments);
+        }
+
+        if (window.location.hostname !== 'localhost') {
+          gtag('js', new Date());
+          gtag('config', G_ID);
+        }
+      </script>
+    -->
+  </head>
+
+  <body id={id}>
+    <slot />
+  </body>
 </html>
-<style is:global>
-	:root {
-		--accent: 136, 58, 234;
-		--accent-light: 224, 204, 250;
-		--accent-dark: 49, 10, 101;
-		--accent-gradient: linear-gradient(
-			45deg,
-			rgb(var(--accent)),
-			rgb(var(--accent-light)) 30%,
-			white 60%
-		);
-	}
-	html {
-		font-family: system-ui, sans-serif;
-		background: #13151a;
-	}
-	code {
-		font-family:
-			Menlo,
-			Monaco,
-			Lucida Console,
-			Liberation Mono,
-			DejaVu Sans Mono,
-			Bitstream Vera Sans Mono,
-			Courier New,
-			monospace;
-	}
-</style>

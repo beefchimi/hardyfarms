@@ -1,0 +1,125 @@
+---
+import {Icon} from 'astro-icon/components';
+
+import Action from '@components/Action.astro';
+import Squiggle from '@components/Squiggle.astro';
+import {HELLO_WORDMARK_ID} from '@constants';
+---
+
+<header id="SectionHello" class="SectionHello" data-section="hello">
+  <div class="Interior">
+    <div id={HELLO_WORDMARK_ID} class="WordmarkWrapper">
+      <Icon name="BrandWordmark" width={undefined} height={undefined} />
+    </div>
+
+    <h1 class="text-head text-head--1 visually-hidden">Hello Hardy Farms</h1>
+
+    <div class="SubtitleWrapper">
+      <p class="text-subhead Subtitle mobile">
+        <span class="text-block">Hyper local plants</span>
+        <span class="text-block">and produce from</span>
+        <span class="text-block">Vancouver Island</span>
+      </p>
+
+      <p class="text-subhead Subtitle desktop">
+        <span class="text-block">Hyper local plants and produce</span>
+        <span class="text-block">from Vancouver Island</span>
+      </p>
+
+      <div class="SquiggleWrapper">
+        <Squiggle id="HelloSquiggle" />
+      </div>
+    </div>
+
+    <Action
+      id="HeaderActionRequest"
+      aria-label="Email Farmer Carson and request local delivery"
+      >Request local delivery ➞</Action
+    >
+  </div>
+</header>
+
+<style>
+  @import '@styles/shared.css';
+
+  .SectionHello {
+    z-index: var(--index-4);
+    position: relative;
+    padding: 8rem 2rem 4rem 2rem;
+    text-align: center;
+    color: var(--color-myrtle);
+
+    @media (--min-tablet) {
+      padding-top: 14rem;
+      padding-bottom: 6.4rem;
+    }
+
+    @media (--min-desktop) {
+      padding-top: 18rem;
+    }
+
+    @media (--min-wide) {
+      --action-font-size: 2.4rem;
+      padding: 22rem 4rem 10rem 4rem;
+    }
+
+    @media (--min-ultrawide) {
+      padding-top: 26rem;
+      padding-bottom: 14rem;
+    }
+  }
+
+  .Interior {
+    display: grid;
+    justify-items: center;
+    gap: 4rem;
+    margin: 0 auto;
+  }
+
+  .WordmarkWrapper {
+    width: 24rem;
+    /* transition: width var(--speed) var(--ease); */
+
+    @media (--min-tablet) {
+      width: 42rem;
+    }
+
+    @media (--min-wide) {
+      width: 70rem;
+    }
+  }
+
+  .SubtitleWrapper {
+    display: grid;
+    gap: 1rem;
+    justify-items: center;
+  }
+
+  .Subtitle {
+    font-weight: var(--outfit-light);
+
+    &.mobile {
+      @media (--min-tablet) {
+        display: none;
+      }
+    }
+
+    &.desktop {
+      @media (--before-tablet) {
+        display: none;
+      }
+    }
+  }
+
+  .SquiggleWrapper {
+    width: 20rem;
+
+    @media (--min-tablet) {
+      width: 26rem;
+    }
+
+    @media (--min-wide) {
+      width: 38.8rem;
+    }
+  }
+</style>

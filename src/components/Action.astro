@@ -1,0 +1,84 @@
+---
+interface Props {
+  id: string;
+  ariaLabel?: string;
+  url?: string;
+  external?: boolean;
+  disabled?: boolean;
+  pressed?: boolean;
+}
+
+const {
+  id,
+  ariaLabel,
+  url = '',
+  external = false,
+  disabled = false,
+  pressed = false,
+} = Astro.props;
+const isLink = Boolean(url && external);
+---
+
+{
+  isLink ? (
+    <a
+      id={id}
+      href={url}
+      class="focus-ring Action"
+      title={ariaLabel}
+      target={external ? '_blank' : undefined}
+      rel={external ? 'noopener noreferrer' : undefined}
+    >
+      <slot />
+    </a>
+  ) : (
+    <button
+      id={id}
+      type="button"
+      class="focus-ring Action"
+      aria-pressed={pressed ? 'true' : undefined}
+      disabled={disabled}
+    >
+      <slot />
+    </button>
+  )
+}
+
+<style>
+  .Action {
+    padding: 0.84em 1em;
+    font-size: var(--action-font-size);
+    font-weight: var(--outfit-x-bold);
+    letter-spacing: 0.06em;
+    text-align: center;
+    text-transform: uppercase;
+    color: var(--action-color-primary);
+    background-color: transparent;
+    border: 0.3rem solid var(--action-color-primary);
+    border-radius: 99rem;
+    transition-property: color, background-color, opacity;
+    transition-duration: var(--speed);
+    transition-timing-function: var(--ease);
+
+    &[aria-pressed] {
+      scale: 2;
+    }
+
+    &::disabled {
+      opacity: 0.8;
+    }
+
+    &:hover {
+      color: var(--action-color-secondary);
+      background-color: var(--action-color-primary);
+    }
+
+    &:active {
+      opacity: 0.9;
+    }
+  }
+
+  a.Action {
+    display: block;
+  }
+</style>

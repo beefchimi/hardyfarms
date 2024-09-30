@@ -1,0 +1,361 @@
+---
+import {Image} from 'astro:assets';
+import Ticker from '@components/Ticker.astro';
+
+import imgBroccoli from '@assets/img/grow-broccoli.jpg';
+import imgCarrots from '@assets/img/grow-carrots.jpg';
+import imgOkra from '@assets/img/grow-okra.jpg';
+import imgOnions from '@assets/img/grow-onions.jpg';
+import imgPeppers from '@assets/img/grow-peppers.jpg';
+import imgSquash from '@assets/img/grow-squash.jpg';
+import imgTomatoes from '@assets/img/grow-tomatoes.jpg';
+import imgZucchini from '@assets/img/grow-zucchini.jpg';
+
+const GROW_DATA = [
+  {
+    id: 'GrowEntry1',
+    img: imgTomatoes,
+    imgAlt: 'TODO: Alt text',
+    title: 'Heirloom Tomatoes',
+    description:
+      'The grooviest looking tomato you may ever lay eyes on. An heirloom tomato is an open-pollinated, non-hybrid heirloom cultivar of tomato. They usually have a shorter shelf life and are less disease resistant than hybrids.',
+  },
+  {
+    id: 'GrowEntry2',
+    img: imgPeppers,
+    imgAlt: 'TODO: Alt text',
+    title: 'Poblano Peppers',
+    description:
+      'The poblano is a mild chili pepper originating in Puebla, Mexico. While poblanos tend to have a mild flavour, occasionally and unpredictably they can have significant heat.',
+  },
+  {
+    id: 'GrowEntry3',
+    img: imgOkra,
+    imgAlt: 'TODO: Alt text',
+    title: 'Okra',
+    description:
+      'Known in some English-speaking countries as lady’s fingers, Okra is a flowering plant in the mallow family native to East Africa. It has edible green seed pods. Cultivated in tropical, subtropical, and warm temperate regions around the world, Okra is used in the cuisines of many countries.',
+  },
+  {
+    id: 'GrowEntry4',
+    img: imgCarrots,
+    imgAlt: 'TODO: Alt text',
+    title: 'Crispy Carrots',
+    description:
+      'The carrot is a root vegetable, typically orange in colour, though heirloom variants including purple, black, red, white, and yellow cultivars exist, all of which are domesticated forms of the wild carrot, native to Europe and Southwestern Asia.',
+  },
+  {
+    id: 'GrowEntry5',
+    img: imgZucchini,
+    imgAlt: 'TODO: Alt text',
+    title: 'Zucchini',
+    description:
+      'The zucchini, courgette or baby marrow is a summer squash, a vining herbaceous plant whose fruit are harvested when their immature seeds and epicarp are still soft and edible. It is closely related, but not identical, to the marrow; its fruit may be called marrow when mature.',
+  },
+  {
+    id: 'GrowEntry6',
+    img: imgOnions,
+    imgAlt: 'TODO: Alt text',
+    title: 'Green Onions',
+    description:
+      'Scallions are edible vegetables of various species in the genus Allium. Scallions generally have a milder taste than most onions. Their close relatives include garlic, shallots, leeks, chives, and Chinese onions.',
+  },
+  {
+    id: 'GrowEntry7',
+    img: imgBroccoli,
+    imgAlt: 'TODO: Alt text',
+    title: 'Broccoli',
+    description:
+      'Broccoli is an edible green plant in the cabbage family whose large flowering head, stalk and small associated leaves are eaten as a vegetable. Broccoli is classified in the Italica cultivar group of the species Brassica oleracea.',
+  },
+  {
+    id: 'GrowEntry8',
+    img: imgSquash,
+    imgAlt: 'TODO: Alt text',
+    title: 'Winter Squash',
+    description:
+      'Winter squash is an annual fruit representing several squash species within the genus Cucurbita. Late-growing, less symmetrical, odd-shaped, rough or warty varieties, small to medium in size, but with long-keeping qualities and hard rinds, are usually called winter squash.',
+  },
+];
+---
+
+<section id="SectionGrow" class="SectionGrow" data-section="grow">
+  <div class="Header">
+    <h2 class="text-head text-head--2 Title">Currently Growing</h2>
+  </div>
+
+  <div class="Interior">
+    <ul class="Grid">
+      {
+        GROW_DATA.map((data) => (
+          <li class="GridItem">
+            <div class="ImageWrapper">
+              <Image src={data.img} alt={data.imgAlt} />
+            </div>
+
+            <h3 class="text-head text-head--3 Heading">{data.title}</h3>
+            <p class="text-p Text">{data.description}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+
+  <div class="Footer">
+    <Ticker animate />
+  </div>
+</section>
+
+<style>
+  @import '@styles/shared.css';
+
+  @keyframes growHeaderLeft {
+    from {
+      background-position-x: 0;
+    }
+
+    to {
+      background-position-x: calc(var(--grow-wave-width) * -1);
+    }
+  }
+
+  @keyframes growHeaderRight {
+    from {
+      background-position-x: calc(var(--grow-wave-width) / 2);
+    }
+
+    to {
+      background-position-x: calc(var(--grow-wave-width) * 1.5);
+    }
+  }
+
+  @keyframes growFooterLeft {
+    from {
+      background-position-x: 0;
+    }
+
+    to {
+      background-position-x: calc(var(--footer-bg-width) * -1);
+    }
+  }
+
+  @keyframes growFooterRight {
+    from {
+      background-position-x: calc(var(--footer-bg-width) / 2);
+    }
+
+    to {
+      background-position-x: calc(var(--footer-bg-width) * 1.5);
+    }
+  }
+
+  .SectionGrow {
+    --grow-wave-width: 36rem;
+    --grow-wave-height: 4rem;
+    --grow-border-size: 0.2rem;
+
+    z-index: var(--index-3);
+    position: relative;
+    background-color: var(--color-honeydew);
+
+    @media (--min-desktop) {
+      z-index: var(--index-2);
+    }
+  }
+
+  .Header {
+    /* Design System Overrides */
+    --selection-primary: var(--color-myrtle);
+    --selection-secondary: var(--color-honeydew);
+
+    position: relative;
+    text-align: center;
+    color: var(--color-honeydew);
+    background-color: var(--color-myrtle);
+
+    /* Wave Backgrounds */
+
+    &::before,
+    &::after {
+      content: '';
+      display: block;
+      position: absolute;
+      width: 100%;
+      height: var(--grow-wave-height);
+      background-image: var(--url-wave-medium-myrtle);
+      background-size: var(--grow-wave-width) var(--grow-wave-height);
+      background-repeat: repeat-x;
+      animation-duration: 20s;
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
+      animation-fill-mode: both;
+      /* interaction-disable */
+      pointer-events: none;
+      touch-action: none;
+      user-select: none;
+    }
+
+    &::before {
+      top: calc(var(--grow-wave-height) * -1);
+      background-position-x: calc(var(--grow-wave-width) / 2);
+      animation-name: growHeaderRight;
+
+      @media (--min-desktop) {
+        content: none;
+        display: none;
+        animation: none;
+      }
+    }
+
+    &::after {
+      bottom: calc(var(--grow-wave-height) * -1);
+      scale: 1 -1;
+      animation-name: growHeaderLeft;
+    }
+  }
+
+  .Title {
+    padding: 1rem;
+
+    @media (--min-desktop) {
+      padding: 8rem 2rem 2rem 2rem;
+    }
+
+    @media (--min-wide) {
+      padding-top: 10rem;
+    }
+
+    @media (--min-ultrawide) {
+      padding-top: 14rem;
+    }
+  }
+
+  .Interior {
+    margin: 2rem auto 0 auto;
+    max-width: 152rem;
+  }
+
+  .Grid {
+    display: grid;
+    margin-right: calc(var(--grow-border-size) * -1);
+
+    @media (--min-phablet) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (--min-desktop) {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .GridItem {
+    margin-top: calc(var(--grow-border-size) * -1);
+    margin-left: calc(var(--grow-border-size) * -1);
+    padding: 4rem 2rem;
+    color: var(--color-myrtle);
+    text-align: center;
+    border: var(--grow-border-size) solid var(--color-myrtle);
+
+    @media (--min-wide) {
+      padding: 4rem;
+    }
+  }
+
+  .ImageWrapper {
+    margin: 0 auto 3.2rem auto;
+    max-width: 32rem;
+    aspect-ratio: 1;
+    border-radius: 2rem;
+    overflow: hidden;
+
+    > img {
+      object-fit: cover;
+    }
+
+    /*
+    box-shadow:
+      0.1rem 0.1rem 0 0 var(--color-myrtle),
+      0.2rem 0.2rem 0 0 var(--color-myrtle),
+      0.3rem 0.3rem 0 0 var(--color-myrtle),
+      0.4rem 0.4rem 0 0 var(--color-myrtle),
+      0.5rem 0.5rem 0 0 var(--color-myrtle),
+      0.6rem 0.6rem 0 0 var(--color-myrtle);
+
+    box-shadow: 0 0 0 0.4rem var(--color-myrtle);
+    */
+  }
+
+  .Heading {
+  }
+
+  .Text {
+    margin-top: 1em;
+
+    /*
+    @supports (-webkit-line-clamp: 8) {
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 8;
+      overflow: hidden;
+    }
+    */
+  }
+
+  .Footer {
+    --footer-bg-width: 18rem;
+    --footer-bg-height: 2.4rem;
+    --footer-bg-offset-y: 0.1rem;
+
+    /* Design System Overrides */
+    --selection-primary: var(--color-myrtle);
+    --selection-secondary: var(--color-honeydew);
+
+    position: relative;
+
+    &::before,
+    &::after {
+      content: '';
+      display: block;
+      position: absolute;
+      width: 100%;
+      height: var(--footer-bg-height);
+      background-image: var(--url-wave-small-myrtle);
+      background-size: var(--footer-bg-width) var(--footer-bg-height);
+      background-repeat: repeat-x;
+      animation-duration: 4s;
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
+      animation-fill-mode: both;
+      /* interaction-disable */
+      pointer-events: none;
+      touch-action: none;
+      user-select: none;
+    }
+
+    &::before {
+      top: calc((var(--footer-bg-height) - var(--footer-bg-offset-y)) * -1);
+      animation-name: growFooterLeft;
+    }
+
+    &::after {
+      bottom: calc((var(--footer-bg-height) - var(--footer-bg-offset-y)) * -1);
+      background-position-x: calc(var(--footer-bg-width) / 2);
+      scale: 1 -1;
+      animation-name: growFooterRight;
+    }
+  }
+
+  /* Background pattern */
+
+  /*
+  .SectionGrow {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ccircle cx='10' cy='10' r='2' fill='%232a736a'/%3E%3Ccircle cx='2' cy='2' r='2' fill='%232a736a'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 16px 16px;
+  }
+
+  .Grid {
+    background-color: var(--color-honeydew);
+  }
+  */
+</style>

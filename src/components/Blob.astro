@@ -1,0 +1,154 @@
+---
+import {blobPath, type BlobShape} from '@assets/paths/blobs';
+
+interface Props {
+  shape?: BlobShape;
+  animate?: boolean;
+  stretch?: boolean;
+  // In most cases, the `flip X/Y` props will be identical to
+  // using the numbered "shape" variants.
+  flipX?: boolean;
+  flipY?: boolean;
+}
+
+const {
+  shape = 'jelly1',
+  animate = false,
+  stretch = false,
+  flipX = false,
+  flipY = false,
+} = Astro.props;
+const data = blobPath[shape];
+
+// CSS Custom Properties
+// Not all browsers will support `d > path()` keyframe animations.
+// The fallback should remain whatever is passed to `path > d` in the
+// HTML, allowing the initial Blob to at least be rendered for all browsers.
+const blobJelly1 = `path('${blobPath.jelly1}')`;
+const blobJelly2 = `path('${blobPath.jelly2}')`;
+const blobJelly3 = `path('${blobPath.jelly3}')`;
+const blobJelly4 = `path('${blobPath.jelly4}')`;
+const blobGoo1 = `path('${blobPath.goo1}')`;
+const blobGoo2 = `path('${blobPath.goo2}')`;
+const blobGoo3 = `path('${blobPath.goo3}')`;
+const blobGoo4 = `path('${blobPath.goo4}')`;
+---
+
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 1600 1000"
+  class:list={['svg-base', 'Blob', {animate, flipX, flipY}]}
+  preserveAspectRatio={stretch ? 'none' : undefined}
+  data-blob-shape={shape}
+>
+  <path d={data}></path>
+</svg>
+
+<style
+  define:vars={{
+    blobJelly1,
+    blobJelly2,
+    blobJelly3,
+    blobJelly4,
+    blobGoo1,
+    blobGoo2,
+    blobGoo3,
+    blobGoo4,
+  }}
+>
+  @keyframes jellyMorph {
+    0%,
+    100% {
+      d: var(--blobJelly1);
+    }
+    25% {
+      d: var(--blobJelly2);
+    }
+    50% {
+      d: var(--blobJelly3);
+    }
+    75% {
+      d: var(--blobJelly4);
+    }
+  }
+
+  @keyframes gooMorph {
+    0%,
+    100% {
+      d: var(--blobGoo1);
+    }
+    25% {
+      d: var(--blobGoo2);
+    }
+    50% {
+      d: var(--blobGoo3);
+    }
+    75% {
+      d: var(--blobGoo4);
+    }
+  }
+
+  .Blob {
+  }
+
+  .animate {
+    /* Long-hand syntax to allow for easier individual overrides. */
+    > path {
+      /* animation-name: multiMorph; */
+      animation-duration: 100s;
+      animation-timing-function: var(--ease-gentle);
+      animation-iteration-count: infinite;
+      animation-fill-mode: both;
+    }
+
+    &[data-blob-shape^='jelly'] > path {
+      animation-name: jellyMorph;
+    }
+
+    &[data-blob-shape^='goo'] > path {
+      animation-name: gooMorph;
+    }
+  }
+
+  .flipX {
+    scale: -1 1;
+  }
+
+  .flipY {
+    scale: 1 -1;
+  }
+
+  .flipX.flipY {
+    scale: -1 -1;
+  }
+
+  /*
+  @keyframes multiMorph {
+    0%,
+    100% {
+      d: var(--blobJelly1);
+    }
+    12% {
+      d: var(--blobJelly2);
+    }
+    24% {
+      d: var(--blobJelly3);
+    }
+    36% {
+      d: var(--blobJelly4);
+    }
+    48% {
+      d: var(--blobGoo1);
+    }
+    60% {
+      d: var(--blobGoo2);
+    }
+    72% {
+      d: var(--blobGoo3);
+    }
+    84% {
+      d: var(--blobGoo4);
+    }
+  }
+  */
+</style>
