@@ -7,7 +7,10 @@ const currentYear = new Date().getFullYear();
 <footer id="SectionChat" class="SectionChat" data-section="chat">
   <div class="InteriorWrapper">
     <div class="Interior">
-      <h2 class="text-head text-head--2 Title">Come by and chat</h2>
+      <h2 class="text-head text-head--2 Title">
+        <span class="text-block">Come by</span>
+        <span class="text-block">and chat</span>
+      </h2>
       <p class="text-subhead Subtitle">
         Have questions about the farm? If you can’t find us at your local
         Farmer’s Market, just reach out any time!
@@ -111,6 +114,11 @@ const currentYear = new Date().getFullYear();
   }
 
   .Title {
+    > .text-block {
+      @media (--min-tablet) {
+        display: unset;
+      }
+    }
   }
 
   .Subtitle {

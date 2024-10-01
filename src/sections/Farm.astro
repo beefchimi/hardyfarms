@@ -3,9 +3,6 @@ import {Image} from 'astro:assets';
 
 import imgPour from '@assets/img/farm-pour.jpg';
 import Blob from '@components/Blob.astro';
-import ClipBlob from '@components/ClipBlob.astro';
-
-const BlobId = 'FarmClipBlob';
 ---
 
 <section id="SectionFarm" class="SectionFarm" data-section="farm">
@@ -39,13 +36,12 @@ const BlobId = 'FarmClipBlob';
     </div>
 
     <div class="ImageWrapper">
-      <ClipBlob id={BlobId} animate />
       <Image src={imgPour} alt="TODO: Alt text" />
     </div>
   </div>
 </section>
 
-<style define:vars={{urlBlobId: `url('#${BlobId}')`}}>
+<style>
   @import '@styles/shared.css';
 
   @keyframes farmWaveFlow {
@@ -69,6 +65,7 @@ const BlobId = 'FarmClipBlob';
 
     z-index: var(--index-2);
     position: relative;
+    text-align: center;
     color: var(--color-coyote);
 
     /* Wave + Blob Offsets */
@@ -76,6 +73,10 @@ const BlobId = 'FarmClipBlob';
 
     @media (--before-desktop) {
       background-color: var(--color-naples);
+    }
+
+    @media (--min-tablet) {
+      text-align: left;
     }
 
     @media (--min-desktop) {
@@ -200,13 +201,13 @@ const BlobId = 'FarmClipBlob';
 
   .blob-wrapper {
     position: absolute;
-    display: grid;
-    top: calc(var(--farm-blob-offset-y) * -1);
-    bottom: calc(var(--farm-blob-offset-y) * -1);
-    width: 80vw;
+    bottom: 0;
+    width: 100%;
 
-    @media (--before-desktop) {
-      display: none;
+    @media (--min-desktop) {
+      top: calc(var(--farm-blob-offset-y) * -1);
+      bottom: calc(var(--farm-blob-offset-y) * -1);
+      width: 80vw;
     }
 
     @media (--min-wide) {
@@ -233,15 +234,35 @@ const BlobId = 'FarmClipBlob';
 
   .BlobFront {
     z-index: 11;
-    left: -20%;
     color: var(--color-naples);
+
+    @media (--before-desktop) {
+      display: none;
+    }
+
+    @media (--min-desktop) {
+      left: -20%;
+    }
   }
 
   .BlobBack {
     z-index: 10;
-    right: -20%;
-    justify-items: end;
     color: var(--color-salmon);
+
+    left: -10%;
+    right: -10%;
+    bottom: -20%;
+    width: 120%;
+
+    @media (--min-tablet) {
+      left: auto;
+      right: -50%;
+      width: 100%;
+    }
+
+    @media (--min-desktop) {
+      right: -20%;
+    }
   }
 
   .BlobBack :global(path) {
@@ -253,9 +274,9 @@ const BlobId = 'FarmClipBlob';
   .ImageWrapper {
     z-index: 12;
     position: relative;
-    aspect-ratio: 1.2;
     margin-left: 2rem;
     margin-right: 2rem;
+    aspect-ratio: 1.2;
     border-radius: 2rem 2rem 0 0;
     overflow: hidden;
 
@@ -265,61 +286,26 @@ const BlobId = 'FarmClipBlob';
       right: 0;
       bottom: 0;
       width: 50%;
-      height: auto;
-      margin: unset;
-      aspect-ratio: unset;
-      border-radius: unset;
-      border-top-left-radius: 4rem;
+      margin: auto 0;
+      border-radius: 4rem 0 0 4rem;
     }
 
     @media (--min-desktop) {
-      top: -16%;
-      bottom: -16%;
-      right: -16%;
-      width: 66%;
-      overflow: unset;
-      border-top-left-radius: unset;
-      /* filter: drop-shadow(1.6rem 1.6rem var(--color-xanthous)); */
+      right: 0;
+      aspect-ratio: 1.4;
+    }
+
+    @media (--min-wide) {
+      right: -10%;
+      width: 60%;
+      aspect-ratio: 1.2;
+      border-radius: 6.4rem;
     }
 
     > img {
       height: auto;
       object-fit: cover;
       object-position: bottom;
-
-      @media (--min-desktop) {
-        clip-path: var(--urlBlobId);
-      }
-
-      /*
-      If we prefer to go back to a rounded-square image:
-
-      @media (--min-desktop) {
-        top: -8%;
-        bottom: -8%;
-        width: 60%;
-        right: -10%;
-        box-shadow: 1.6rem 1.6rem 0 0 var(--color-naples);
-        border-radius: 6.4rem;
-        overflow: hidden;
-      }
-      */
-    }
-  }
-
-  .ImageWrapper :global(svg) {
-    @media (--before-desktop) {
-      display: none;
-    }
-  }
-
-  .ImageWrapper :global(path) {
-    /*
-      Not sure if this is really necessary... but,
-      prevent animations when ClipBlobs are not rendered.
-    */
-    @media (--before-desktop) {
-      animation: none !important;
     }
   }
 </style>
