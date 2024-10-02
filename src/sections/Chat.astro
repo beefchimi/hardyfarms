@@ -65,7 +65,7 @@ const currentYear = new Date().getFullYear();
     --action-color-primary: var(--color-honeydew);
     --action-color-secondary: var(--color-myrtle);
 
-    z-index: var(--index-5);
+    z-index: var(--layer-5);
     position: relative;
     text-align: center;
     color: var(--color-honeydew);
@@ -100,12 +100,8 @@ const currentYear = new Date().getFullYear();
   }
 
   .InteriorWrapper {
-    padding: 4rem 2rem;
+    padding: calc(var(--page-padding-x) * 2) var(--page-padding-x);
     background-color: var(--color-myrtle);
-
-    @media (--min-wide) {
-      padding: 8rem 4rem;
-    }
   }
 
   .Interior {

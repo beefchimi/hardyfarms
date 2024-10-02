@@ -55,21 +55,14 @@ import Blob from '@components/Blob.astro';
   }
 
   .SectionFarm {
-    --farm-wave-width: 36rem;
-    --farm-wave-height: 4rem;
-    --farm-blob-offset-y: 4rem;
-
     /* Design System Overrides */
     --selection-primary: var(--color-naples);
     --selection-secondary: var(--color-coyote);
 
-    z-index: var(--index-2);
+    z-index: var(--layer-2);
     position: relative;
     text-align: center;
     color: var(--color-coyote);
-
-    /* Wave + Blob Offsets */
-    margin-top: var(--farm-wave-height);
 
     @media (--before-desktop) {
       background-color: var(--color-naples);
@@ -80,18 +73,7 @@ import Blob from '@components/Blob.astro';
     }
 
     @media (--min-desktop) {
-      --farm-wave-width: 144rem;
-      --farm-wave-height: 16rem;
-      z-index: var(--index-3);
-      margin-top: var(--farm-blob-offset-y);
-    }
-
-    @media (--min-wide) {
-      --farm-blob-offset-y: 6.4rem;
-    }
-
-    @media (--min-ultrawide) {
-      --farm-blob-offset-y: 10rem;
+      z-index: var(--layer-3);
     }
 
     /* Wave Backgrounds */
@@ -274,10 +256,10 @@ import Blob from '@components/Blob.astro';
   .ImageWrapper {
     z-index: 12;
     position: relative;
-    margin-left: 2rem;
-    margin-right: 2rem;
+    margin-left: var(--page-padding-x);
+    margin-right: var(--page-padding-x);
     aspect-ratio: 1.2;
-    border-radius: 2rem 2rem 0 0;
+    border-radius: var(--radius) var(--radius) 0 0;
     overflow: hidden;
 
     @media (--min-tablet) {
@@ -287,7 +269,7 @@ import Blob from '@components/Blob.astro';
       bottom: 0;
       width: 50%;
       margin: auto 0;
-      border-radius: 4rem 0 0 4rem;
+      border-radius: var(--radius-loose) 0 0 var(--radius-loose);
     }
 
     @media (--min-desktop) {
@@ -299,7 +281,7 @@ import Blob from '@components/Blob.astro';
       right: -10%;
       width: 60%;
       aspect-ratio: 1.2;
-      border-radius: 6.4rem;
+      border-radius: var(--radius-looser);
     }
 
     > img {

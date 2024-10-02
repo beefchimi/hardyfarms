@@ -12,16 +12,14 @@
   font-style: normal;
 }
 
+/* --- Design System --- */
+
 :root {
   --color-honeydew: rgb(219, 234, 212, 1);
   --color-myrtle: rgb(42, 115, 106, 1);
   --color-naples: rgb(255, 228, 87, 1);
   --color-salmon: rgb(255, 107, 75, 1);
   --color-coyote: rgb(111, 99, 70, 1);
-
-  /* Other colors */
-  --color-icterine: rgb(235, 238, 67, 1);
-  --color-xanthous: rgb(255, 200, 95, 1);
   --color-violet: rgb(44, 72, 168, 1);
   --color-crayola: rgb(95, 120, 255, 1);
   --color-lavender: rgb(225, 226, 255, 1);
@@ -29,43 +27,25 @@
   --selection-primary: var(--color-honeydew);
   --selection-secondary: var(--color-myrtle);
 
-  --index-1: 100;
-  --index-2: 200;
-  --index-3: 300;
-  --index-4: 400;
-  --index-5: 500;
-  --index-6: 600;
-  --index-7: 700;
+  --layer-1: 100;
+  --layer-2: 200;
+  --layer-3: 300;
+  --layer-4: 400;
+  --layer-5: 500;
+  --layer-6: 600;
+  --layer-7: 700;
 
-  --space-tightest: 0.8rem;
-  --space-tighter: 1.6rem;
-  --space-tight: 2.4rem;
-  --space: 3.2rem;
-  --space-loose: 4rem;
-  --space-looser: 4.8rem;
-  --space-loosest: 5.6rem;
-  --space-fat: 6.4rem;
-  --space-fatter: 7.2rem;
-  --space-fattest: 8rem;
+  --radius-tight: 1rem;
+  --radius: 2rem;
+  --radius-loose: 4rem;
+  --radius-looser: 6.4rem;
 
-  --radius-tight: 0.1rem;
-  --radius: 0.3rem;
-  --radius-loose: 0.6rem;
-  --radius-looser: 0.8rem;
-
-  --speed-fastest: 30ms;
-  --speed-faster: 60ms;
   --speed-fast: 120ms;
   --speed: 240ms;
   --speed-slow: 480ms;
-  --speed-slower: 960ms;
-  --speed-slowest: 1920ms;
 
   --ease: cubic-bezier(0.64, 0, 0.32, 1);
   --ease-gentle: cubic-bezier(0.2, 0.1, 0.8, 0.9);
-  --ease-excite: cubic-bezier(0.18, 0.66, 0.6, 1.22);
-  --ease-bungie: cubic-bezier(0.32, 1.46, 0.54, 1.28);
-  --ease-anticipate: cubic-bezier(0.38, -0.4, 0.84, 0.44);
 
   --focus-offset: -0.4rem;
   --icon-size: 2rem;
@@ -105,10 +85,32 @@
   --url-wave-medium-naples: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 360 40'%3E%3Cpath d='M360,40 H0 V0 C60,0 120,20 180,20 C240,20 300,0 360,0 V40 Z' fill='%23ffe457'/%3E%3C/svg%3E");
 
   /* Components */
+  --page-padding-x: 2rem;
+
+  --farm-wave-width: 36rem;
+  --farm-wave-height: 4rem;
+  --farm-blob-offset-y: 4rem;
+
   --action-font-size: 1.6rem;
   --action-color-primary: var(--color-myrtle);
   --action-color-secondary: var(--color-honeydew);
+
+  @media (--min-desktop) {
+    --farm-wave-width: 144rem;
+    --farm-wave-height: 16rem;
+  }
+
+  @media (--min-wide) {
+    --page-padding-x: 4rem;
+    --farm-blob-offset-y: 6.4rem;
+  }
+
+  @media (--min-ultrawide) {
+    --farm-blob-offset-y: 10rem;
+  }
 }
+
+/* --- Foundation --- */
 
 ::selection {
   color: var(--selection-primary);
@@ -161,6 +163,7 @@ body {
 }
 
 /* --- Components --- */
+
 svg[data-icon] {
   width: 100%;
   height: 100%;
@@ -168,7 +171,7 @@ svg[data-icon] {
   fill: currentColor;
 }
 
-/* --- Global animations --- */
+/* --- Global Animations --- */
 
 @keyframes fadeIn {
   from {

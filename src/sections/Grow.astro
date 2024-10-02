@@ -154,12 +154,12 @@ const GROW_DATA = [
     --grow-wave-height: 4rem;
     --grow-border-size: 0.2rem;
 
-    z-index: var(--index-3);
+    z-index: var(--layer-3);
     position: relative;
     background-color: var(--color-honeydew);
 
     @media (--min-desktop) {
-      z-index: var(--index-2);
+      z-index: var(--layer-2);
     }
   }
 
@@ -218,7 +218,10 @@ const GROW_DATA = [
     padding: 1rem;
 
     @media (--min-desktop) {
-      padding: 8rem 2rem 2rem 2rem;
+      padding-top: 8rem;
+      padding-bottom: 2rem;
+      padding-left: var(--page-padding-x);
+      padding-right: var(--page-padding-x);
     }
 
     @media (--min-wide) {
@@ -251,13 +254,35 @@ const GROW_DATA = [
   .GridItem {
     margin-top: calc(var(--grow-border-size) * -1);
     margin-left: calc(var(--grow-border-size) * -1);
-    padding: 4rem 2rem;
+    padding: var(--page-padding-x);
     color: var(--color-myrtle);
     text-align: center;
     border: var(--grow-border-size) solid var(--color-myrtle);
 
-    @media (--min-wide) {
-      padding: 4rem;
+    &:last-child {
+      padding-bottom: calc(var(--page-padding-x) * 2);
+    }
+
+    @media (--before-phablet) {
+      &:nth-child(1) {
+        padding-top: calc(var(--page-padding-x) * 2);
+      }
+    }
+
+    @media (--min-phablet) {
+      grid-template-columns: repeat(2, 1fr);
+
+      &:nth-child(-n + 2) {
+        padding-top: calc(var(--page-padding-x) * 2);
+      }
+    }
+
+    @media (--min-desktop) {
+      grid-template-columns: repeat(4, 1fr);
+
+      &:nth-child(-n + 4) {
+        padding-top: calc(var(--page-padding-x) * 2);
+      }
     }
   }
 
@@ -265,24 +290,13 @@ const GROW_DATA = [
     margin: 0 auto 3.2rem auto;
     max-width: 32rem;
     aspect-ratio: 1;
-    border-radius: 2rem;
+    border-radius: var(--radius);
     overflow: hidden;
 
     > img {
       object-fit: cover;
+      background-color: rgb(0, 0, 0, 0.06);
     }
-
-    /*
-    box-shadow:
-      0.1rem 0.1rem 0 0 var(--color-myrtle),
-      0.2rem 0.2rem 0 0 var(--color-myrtle),
-      0.3rem 0.3rem 0 0 var(--color-myrtle),
-      0.4rem 0.4rem 0 0 var(--color-myrtle),
-      0.5rem 0.5rem 0 0 var(--color-myrtle),
-      0.6rem 0.6rem 0 0 var(--color-myrtle);
-
-    box-shadow: 0 0 0 0.4rem var(--color-myrtle);
-    */
   }
 
   .Heading {
@@ -290,15 +304,6 @@ const GROW_DATA = [
 
   .Text {
     margin-top: 1em;
-
-    /*
-    @supports (-webkit-line-clamp: 8) {
-      display: -webkit-box;
-      -webkit-box-orient: vertical;
-      -webkit-line-clamp: 8;
-      overflow: hidden;
-    }
-    */
   }
 
   .Footer {

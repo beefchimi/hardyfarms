@@ -43,29 +43,38 @@ import {HELLO_WORDMARK_ID} from '@constants';
   @import '@styles/shared.css';
 
   .SectionHello {
-    z-index: var(--index-4);
+    --padding-top: 8rem;
+    --padding-bottom: 4rem;
+
+    z-index: var(--layer-4);
     position: relative;
-    padding: 8rem 2rem 4rem 2rem;
+    padding-top: var(--padding-top);
+    padding-bottom: calc(var(--padding-bottom) + var(--farm-wave-height));
+    padding-left: var(--page-padding-x);
+    padding-right: var(--page-padding-x);
     text-align: center;
     color: var(--color-myrtle);
 
     @media (--min-tablet) {
-      padding-top: 14rem;
-      padding-bottom: 6.4rem;
+      --padding-top: 14rem;
+      --padding-bottom: 6.4rem;
     }
 
     @media (--min-desktop) {
-      padding-top: 18rem;
+      --padding-top: 18rem;
+      padding-bottom: calc(var(--padding-bottom) + var(--farm-blob-offset-y));
     }
 
     @media (--min-wide) {
+      --padding-top: 22rem;
+      --padding-bottom: 10rem;
+      /* Design system overrides */
       --action-font-size: 2.4rem;
-      padding: 22rem 4rem 10rem 4rem;
     }
 
     @media (--min-ultrawide) {
-      padding-top: 26rem;
-      padding-bottom: 14rem;
+      --padding-top: 26rem;
+      --padding-bottom: 14rem;
     }
   }
 
@@ -78,7 +87,6 @@ import {HELLO_WORDMARK_ID} from '@constants';
 
   .WordmarkWrapper {
     width: 24rem;
-    /* transition: width var(--speed) var(--ease); */
 
     @media (--min-tablet) {
       width: 42rem;

@@ -67,7 +67,7 @@ import Blob from '@components/Blob.astro';
     --action-color-primary: var(--color-violet);
     --action-color-secondary: var(--color-lavender);
 
-    z-index: var(--index-1);
+    z-index: var(--layer-1);
     position: relative;
     text-align: center;
     color: var(--color-violet);
@@ -85,7 +85,10 @@ import Blob from '@components/Blob.astro';
   }
 
   .Content {
-    padding: 6.4rem 2rem 4rem 2rem;
+    padding-top: 6.4rem;
+    padding-bottom: 4rem;
+    padding-left: var(--page-padding-x);
+    padding-right: var(--page-padding-x);
 
     @media (--min-tablet) {
       width: 50%;
@@ -99,7 +102,8 @@ import Blob from '@components/Blob.astro';
     }
 
     @media (--min-wide) {
-      padding: 12rem 4rem 14rem 4rem;
+      padding-top: 12rem;
+      padding-bottom: 14rem;
     }
   }
 
@@ -177,12 +181,13 @@ import Blob from '@components/Blob.astro';
   .ImageWrapper {
     z-index: 12;
     position: relative;
-    bottom: -0.2rem;
-    margin-left: 2rem;
-    margin-right: 2rem;
+    margin-left: var(--page-padding-x);
+    margin-right: var(--page-padding-x);
     aspect-ratio: 1.2;
-    border-radius: 2rem 2rem 0 0;
+    border-radius: var(--radius) var(--radius) 0 0;
     overflow: hidden;
+    /* Offst to keep beneath adjacent section */
+    bottom: -0.2rem;
 
     @media (--min-tablet) {
       position: absolute;
@@ -192,7 +197,7 @@ import Blob from '@components/Blob.astro';
       margin: auto 0;
       aspect-ratio: unset;
       border-radius: unset;
-      border-top-left-radius: 2rem;
+      border-top-left-radius: var(--radius);
     }
 
     @media (--min-desktop) {
@@ -201,7 +206,7 @@ import Blob from '@components/Blob.astro';
       right: -10%;
       margin: auto 0;
       width: 60%;
-      border-radius: 4rem;
+      border-radius: var(--radius-loose);
     }
 
     > img {

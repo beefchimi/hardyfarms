@@ -22,7 +22,7 @@ export class SectionTracker {
       rootMargin: '0px',
       // `threshold` value determined based on browser testing.
       // If <section /> heights change, we may want to revisit this value.
-      threshold: 0.6,
+      threshold: 0.5,
     });
 
     this.#sections.forEach((element) => {
@@ -36,7 +36,11 @@ export class SectionTracker {
   }
 
   #handleIntersect: IntersectionObserverCallback = (entries) => {
+    // console.log('entries', entries);
+
     entries.forEach(({target, isIntersecting}) => {
+      // console.log(target.id, isIntersecting, intersectionRatio);
+
       if (isIntersecting) {
         const targetSection = target.getAttribute('data-section');
         document.documentElement.dataset.activeSection =
