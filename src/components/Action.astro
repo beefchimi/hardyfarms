@@ -16,7 +16,8 @@ const {
   disabled = false,
   pressed = false,
 } = Astro.props;
-const isLink = Boolean(url && external);
+
+const isLink = Boolean(url);
 ---
 
 {

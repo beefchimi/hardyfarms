@@ -1,66 +1,76 @@
 ---
+import {Icon} from 'astro-icon/components';
+
 import Layout from '@layouts/Layout.astro';
+
+import Action from '@components/Action.astro';
+import BlobsBackground from '@components/BlobsBackground.astro';
+import {HELLO_WORDMARK_ID} from '@constants';
 ---
 
 <Layout id="Page404" title="Page does not exist | Hello Hardy Farms">
-  <main id="Main404">
-    <section id="Section404" class="section">
-      <article class="section-interior">
-        <div class="ErrorContent">
-          <h1 class="heading heading--1">Error 404</h1>
-          <h2 class="heading heading--2">
-            You have encountered a catastrophic error. Please evacuate the
-            internet.
-          </h2>
+  <div class="Page">
+    <BlobsBackground noise />
 
-          <h4 class="heading heading--4">
-            <a href="/" class="heading-link" title="Return to home page"
-              >Emergency Eject</a
-            >
-          </h4>
+    <main>
+      <section id="Section404" class="Section404" data-section="error404">
+        <div id={HELLO_WORDMARK_ID} class="WordmarkWrapper">
+          <Icon name="BrandWordmark" width={undefined} height={undefined} />
         </div>
-      </article>
-    </section>
-  </main>
+
+        <h1 class="text-head text-head--1 visually-hidden">
+          Hello Hardy Farms
+        </h1>
+
+        <h2 class="text-head text-head--2 Title">Error 404</h2>
+
+        <div class="Cta">
+          <Action id="ReturnHome" url="/" ariaLabel="Return to home page"
+            >Return home ➞</Action
+          >
+        </div>
+      </section>
+    </main>
+  </div>
 </Layout>
 
 <style>
-  @property --color-rainbow {
-    initial-value: 0deg;
-    inherits: false;
-    syntax: '<angle>';
-  }
+  @import '@styles/shared.css';
 
-  @keyframes rainbowSpin {
-    0%,
-    10% {
-      --color-rainbow: 0deg;
+  .Page {
+    /* Design System Overrides */
+    --action-color-primary: var(--color-honeydew);
+    --action-color-secondary: var(--color-myrtle);
+
+    /* Page loading */
+    transition: opacity var(--speed-slower) var(--ease);
+
+    @starting-style {
+      opacity: 0;
     }
-    100% {
-      --color-rainbow: 360deg;
-    }
   }
 
-  :global(#Main404) {
-    --color-portfolio: hsl(var(--color-rainbow) 100% 50%);
-    animation: rainbowSpin 4s linear infinite both;
-  }
-
-  .ErrorContent {
+  .Section404 {
     display: grid;
-    justify-content: center;
-    gap: var(--space-tight);
-    padding: var(--space);
+    align-content: center;
+    justify-items: center;
+    gap: 4rem;
+    padding: var(--page-padding-x);
+    min-height: 100vh;
     text-align: center;
-    max-width: 90rem;
-
-    /* Page load (fade-in) */
-    position: relative;
-    z-index: var(--layer-7);
-    animation: fadeIn var(--speed-slower) var(--speed-slow) var(--ease) both;
+    color: var(--color-honeydew);
   }
 
-  .ErrorContent h4 a {
-    font-weight: 700;
+  .WordmarkWrapper {
+    width: 24rem;
+    color: var(--color-myrtle);
+
+    @media (--min-tablet) {
+      width: 42rem;
+    }
+
+    @media (--min-wide) {
+      width: 70rem;
+    }
   }
 </style>

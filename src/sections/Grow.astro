@@ -224,12 +224,16 @@ const GROW_DATA = [
       padding-right: var(--page-padding-x);
     }
 
-    @media (--min-wide) {
+    @media (--min-desktop) {
       padding-top: 10rem;
     }
 
-    @media (--min-ultrawide) {
+    @media (--min-wide) {
       padding-top: 14rem;
+    }
+
+    @media (--min-ultrawide) {
+      padding-top: 16rem;
     }
   }
 
@@ -295,7 +299,8 @@ const GROW_DATA = [
 
     > img {
       object-fit: cover;
-      background-color: rgb(0, 0, 0, 0.06);
+      color: var(--color-myrtle);
+      background-color: currentColor;
     }
   }
 

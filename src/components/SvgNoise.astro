@@ -1,0 +1,36 @@
+---
+interface Props {
+  screen?: boolean;
+}
+
+const {screen = false} = Astro.props;
+
+export const SVG_NOISE_FILTER_ID = 'SvgNoiseFilter';
+export const SVG_NOISE_PATTERN_ID = 'SvgNoisePattern';
+---
+
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+  <filter id={SVG_NOISE_FILTER_ID} x="0" y="0">
+    <feTurbulence
+      type="fractalNoise"
+      baseFrequency="0.65"
+      numOctaves="3"
+      stitchTiles="stitch"></feTurbulence>
+    {screen && <feBlend mode="screen" />}
+  </filter>
+
+  <pattern
+    id={SVG_NOISE_PATTERN_ID}
+    x="0"
+    y="0"
+    width="400"
+    height="400"
+    patternUnits="userSpaceOnUse"
+  >
+    <rect width="400" height="400" filter={`url(#${SVG_NOISE_FILTER_ID})`}
+    ></rect>
+  </pattern>
+
+  <rect width="100%" height="100%" fill={`url(#${SVG_NOISE_PATTERN_ID})`}
+  ></rect>
+</svg>

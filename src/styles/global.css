@@ -18,6 +18,8 @@
   --color-honeydew: rgb(219, 234, 212, 1);
   --color-myrtle: rgb(42, 115, 106, 1);
   --color-naples: rgb(255, 228, 87, 1);
+  --color-xanthous: rgb(255, 200, 95, 1);
+  --color-icterine: rgb(235, 238, 67, 1);
   --color-salmon: rgb(255, 107, 75, 1);
   --color-coyote: rgb(111, 99, 70, 1);
   --color-violet: rgb(44, 72, 168, 1);
@@ -43,6 +45,7 @@
   --speed-fast: 120ms;
   --speed: 240ms;
   --speed-slow: 480ms;
+  --speed-slower: 960ms;
 
   --ease: cubic-bezier(0.64, 0, 0.32, 1);
   --ease-gentle: cubic-bezier(0.2, 0.1, 0.8, 0.9);

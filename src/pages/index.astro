@@ -15,7 +15,7 @@ import SectionChat from '@sections/Chat.astro';
     <Navigation />
     <SectionHello />
 
-    <main class="Main">
+    <main>
       <SectionFarm />
       <SectionGrow />
       <SectionFind />
@@ -29,6 +29,13 @@ import SectionChat from '@sections/Chat.astro';
   .Page {
     /* Required for some of the over-sized blobs. */
     overflow: hidden;
+
+    /* Page loading */
+    transition: opacity var(--speed-slower) var(--ease);
+
+    @starting-style {
+      opacity: 0;
+    }
   }
 </style>
 
