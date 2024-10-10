@@ -39,15 +39,15 @@
     "test": "echo 'There is no testing suite set up for this app.'"
   },
   "dependencies": {
-    "@astrojs/check": "^0.9.3",
+    "@astrojs/check": "^0.9.4",
     "@fontsource-variable/outfit": "^5.1.0",
-    "astro": "^4.15.10",
+    "astro": "^4.16.0",
     "astro-icon": "^1.1.1",
     "beeftools": "^0.1.7",
-    "typescript": "^5.6.2"
+    "typescript": "^5.6.3"
   },
   "devDependencies": {
-    "@typescript-eslint/parser": "^8.8.0",
+    "@typescript-eslint/parser": "^8.8.1",
     "eslint": "^8.57.0",
     "eslint-plugin-astro": "^1.2.4",
     "eslint-plugin-jsx-a11y": "^6.10.0",
