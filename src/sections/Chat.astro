@@ -83,19 +83,31 @@ const currentYear = new Date().getFullYear();
       width: 100%;
       background-image: url('../assets/patterns/wave-big.svg');
       background-repeat: repeat-x;
-
-      /*
-        These very small offsets are necessary in order to avoid subpixel gaps.
-        SVG asset uses `preserveAspectRatio="none"` to allow stretching.
-      */
-      background-position: center -1px;
-      translate: 0 -98%;
       animation: chatWaveFlow 24s ease-in-out infinite both alternate;
 
       /* interaction-disable */
       pointer-events: none;
       touch-action: none;
       user-select: none;
+
+      /*
+        A very small offset is necessary in order to avoid a subpixel gap
+        between the "wave" and Chat background. Additionally, the SVG
+        asset uses `preserveAspectRatio="none"` to allow stretching.
+      */
+      translate: 0 -99%;
+
+      /*
+        TODO: Specialized offsets are required for Chrome-based browsers in order to avoid
+        a thin line above the "wave" pattern. However, targeting only Chrome browsers
+        is very difficult... we will need to continue investigating a solution.
+      */
+      clip-path: polygon(0 1px, 100% 1px, 100% 100%, 0% 100%);
+
+      /*
+      background-position: center -1px;
+      translate: 0 -98%;
+      */
     }
   }
 
