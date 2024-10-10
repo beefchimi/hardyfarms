@@ -207,7 +207,7 @@ const data = MotionBlobs.shapeData[shape];
           element.getAttribute(MotionBlobs.attrShape) ??
           MotionBlobs.shapeKeys[0];
         const availableShapes = MotionBlobs.shapeKeys.filter(
-          (value) => value !== currentShape
+          (value) => value !== currentShape,
         );
         const randomIndex = randomInteger(0, availableShapes.length - 1);
         const newShape = availableShapes[randomIndex];
