@@ -79,8 +79,10 @@ export class SectionTracker {
     const maxScrollY = this.docHeight - this.viewHeight;
     const viewMid = Math.floor(this.viewHeight / 2) + scrollY;
 
-    if (scrollY >= maxScrollY) {
-      const finalSection = this.sectionBoxes[this.sectionBoxes.length - 1];
+    const finalSection = this.sectionBoxes[this.sectionBoxes.length - 1];
+    const bottomThreshold = finalSection.height / 2;
+
+    if (scrollY >= maxScrollY - bottomThreshold) {
       return finalSection.id;
     }
 
