@@ -1,0 +1,231 @@
+---
+import {MotionBlobs, type BlobShape} from '@scripts/MotionBlobs';
+
+interface Props {
+  shape?: BlobShape;
+  motionInterval?: number;
+  // In most cases, the `flip X/Y` props will be identical to
+  // using the numbered "shape" variants.
+  flipX?: boolean;
+  flipY?: boolean;
+}
+
+const {
+  shape = 'jelly1',
+  motionInterval = 0,
+  flipX = false,
+  flipY = false,
+} = Astro.props;
+const data = MotionBlobs.shapeData[shape];
+
+// Usage:
+// <Blob motionInterval={8100} />
+---
+
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 1600 1000"
+  class:list={['svg-base', 'Blob', {flipX, flipY}]}
+>
+  <path
+    d={data}
+    data-blob-shape={shape}
+    data-blob-interval={motionInterval ? motionInterval : undefined}></path>
+</svg>
+
+<style>
+  .Blob {
+    > path {
+      transition: d 8s ease-in-out;
+    }
+  }
+
+  .flipX {
+    scale: -1 1;
+  }
+
+  .flipY {
+    scale: 1 -1;
+  }
+
+  .flipX.flipY {
+    scale: -1 -1;
+  }
+</style>
+
+<script>
+  import {arrayDedupe, randomInteger, typedObjectKeys} from 'beeftools';
+
+  // Numbered variants correspond with flipped versions of the same blob.
+  export type BlobShape =
+    | 'jelly1'
+    | 'jelly2'
+    | 'jelly3'
+    | 'jelly4'
+    | 'goo1'
+    | 'goo2'
+    | 'goo3'
+    | 'goo4';
+
+  export class MotionBlobs {
+    static readonly attrShape = 'data-blob-shape';
+    static readonly attrInterval = 'data-blob-interval';
+
+    static readonly shapeData: Record<BlobShape, string> = {
+      jelly1: `
+      M360,132
+      C768,-136 924,84
+      1338,132
+      C1752,180 1614,566
+      1338,876
+      C1060,1184 902,802
+      358,876
+      C-186,948 -48,400
+      360,132
+      Z
+    `,
+      jelly2: `
+      M261,132
+      C672,92 831,-136
+      1239,132
+      C1647,400 1785,948
+      1241,876
+      C697,802 539,1184
+      261,876
+      C-15,566 -150,172
+      261,132
+      Z
+    `,
+      jelly3: `
+      M360,62
+      C896,29 1115,-73
+      1367,121
+      C1619,315 1738,819
+      1324,867
+      C910,915 768,1135
+      360,867
+      C-48,599 -176,94
+      360,62
+      Z
+    `,
+      jelly4: `
+      M261,123
+      C532,-112 695,85
+      1239,11
+      C1783,-61 1647,599
+      1239,867
+      C831,1135 675,915
+      261,867
+      C-153,819 -10,358
+      261,123
+      Z
+    `,
+      goo1: `
+      M316,148
+      C825,-158 822,122
+      1264,80
+      C1706,38 1665,444
+      1392,764
+      C1118,1083 849,1013
+      360,922
+      C-129,830 -88,392
+      316,148
+      Z
+    `,
+      goo2: `
+      M336,80
+      C778,122 775,-158
+      1284,148
+      C1688,392 1729,830
+      1240,922
+      C751,1013 482,1083
+      208,764
+      C-65,444 -106,38
+      336,80
+      Z
+    `,
+      goo3: `
+      M360,80
+      C849,-11 1118,-82
+      1392,237
+      C1665,557 1706,964
+      1264,922
+      C822,880 825,1160
+      316,854
+      C-88,610 -129,172
+      360,80
+      Z
+    `,
+      goo4: `
+      M208,238
+      C482,-81 751,-11
+      1240,80
+      C1729,172 1688,610
+      1284,854
+      C775,1160 778,880
+      336,922
+      C-106,964 -65,558
+      208,238
+      Z
+    `,
+    };
+    static readonly shapeKeys = typedObjectKeys(MotionBlobs.shapeData);
+
+    #blobs: NodeListOf<Element>;
+    #intervalIds: number[] = [];
+
+    constructor() {
+      this.#blobs = this.motionBlobs;
+    }
+
+    get motionBlobs() {
+      // Only grab `blobs` that are designated for animation.
+      return document.querySelectorAll(`[${MotionBlobs.attrInterval}]`);
+    }
+
+    run() {
+      this.#blobs.forEach(this.#animate);
+    }
+
+    refresh() {
+      console.log('TODO: Recapture all blobs and re-run intervals!');
+    }
+
+    teardown() {
+      this.#intervalIds.forEach(window.clearInterval);
+      this.#intervalIds = [];
+    }
+
+    #animate = (element: Element) => {
+      const intervalRaw = element.getAttribute(MotionBlobs.attrInterval);
+      const interval = intervalRaw ? parseInt(intervalRaw, 10) : 0;
+
+      if (!interval) return;
+
+      const intervalId = window.setInterval(() => {
+        const currentShape =
+          element.getAttribute(MotionBlobs.attrShape) ??
+          MotionBlobs.shapeKeys[0];
+        const availableShapes = MotionBlobs.shapeKeys.filter(
+          (value) => value !== currentShape
+        );
+        const randomIndex = randomInteger(0, availableShapes.length - 1);
+        const newShape = availableShapes[randomIndex];
+
+        element.setAttribute(MotionBlobs.attrShape, newShape);
+        element.setAttribute('d', MotionBlobs.shapeData[newShape]);
+      }, interval);
+
+      this.#updateIntervalIds(intervalId);
+    };
+
+    #updateIntervalIds = (...ids: number[]) => {
+      const newIds = arrayDedupe(this.#intervalIds, ids);
+      this.#intervalIds = newIds.sort();
+    };
+  }
+
+  // import {MotionBlobs} from '@scripts/MotionBlobs';
+  const blobsInstance = new MotionBlobs();
+  blobsInstance.run();
+</script>

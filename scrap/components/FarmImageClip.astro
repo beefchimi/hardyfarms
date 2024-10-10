@@ -1,0 +1,79 @@
+---
+import {Image} from 'astro:assets';
+
+import imgPour from '@assets/img/farm-pour.jpg';
+import ClipBlob from '@components/ClipBlob.astro';
+
+const BlobId = 'FarmClipBlob';
+---
+
+<section id="SectionFarm" class="SectionFarm" data-section="farm">
+  <div class="Interior">
+    <div class="ImageWrapper">
+      <ClipBlob id={BlobId} shape="wide1" animate />
+      <Image src={imgPour} alt="TODO: Alt text" />
+    </div>
+  </div>
+</section>
+
+<style define:vars={{urlBlobId: `url('#${BlobId}')`}}>
+  @import '@styles/shared.css';
+
+  .ImageWrapper {
+    z-index: 12;
+    position: relative;
+    margin-left: 2rem;
+    margin-right: 2rem;
+    aspect-ratio: 1.2;
+    border-radius: 2rem 2rem 0 0;
+    overflow: hidden;
+
+    @media (--min-tablet) {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 50%;
+      height: auto;
+      margin: unset;
+      aspect-ratio: unset;
+      border-radius: unset;
+      border-top-left-radius: 4rem;
+    }
+
+    @media (--min-desktop) {
+      top: -16%;
+      bottom: -16%;
+      right: -16%;
+      width: 66%;
+      overflow: unset;
+      border-top-left-radius: unset;
+    }
+
+    > img {
+      height: auto;
+      object-fit: cover;
+      object-position: bottom;
+
+      @media (--min-desktop) {
+        clip-path: var(--urlBlobId);
+      }
+    }
+  }
+
+  .ImageWrapper :global(svg) {
+    @media (--before-desktop) {
+      display: none;
+    }
+  }
+
+  .ImageWrapper :global(path) {
+    /*
+      Not sure if this is really necessary... but,
+      prevent animations when ClipBlobs are not rendered.
+    */
+    @media (--before-desktop) {
+      animation: none !important;
+    }
+  }
+</style>
