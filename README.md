@@ -5,3 +5,5 @@
 > This project is a work-in-progress.
 
 Currently deploying to [https://hellohardyfarms.netlify.app/](https://hellohardyfarms.netlify.app/) for testing.
+
+This site is not yet meant for production. All assets are temporary and are NOT allowed to be copied and used elsewhere.
