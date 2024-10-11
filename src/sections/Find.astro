@@ -92,18 +92,18 @@ import Blob from '@components/Blob.astro';
 
     @media (--min-tablet) {
       width: 50%;
-      padding-top: 8rem;
-      padding-bottom: 6.4rem;
-    }
-
-    @media (--min-desktop) {
       padding-top: 10rem;
       padding-bottom: 8rem;
     }
 
-    @media (--min-wide) {
+    @media (--min-desktop) {
       padding-top: 12rem;
       padding-bottom: 14rem;
+    }
+
+    @media (--min-wide) {
+      padding-top: 14rem;
+      padding-bottom: 16rem;
     }
   }
 
@@ -149,16 +149,22 @@ import Blob from '@components/Blob.astro';
     @media (--min-tablet) {
       left: unset;
       bottom: unset;
-      top: 20%;
-      right: -20%;
+      top: 0;
+      right: 0;
     }
 
     @media (--min-desktop) {
       top: 8%;
+      right: -20%;
     }
 
     @media (--min-wide) {
       right: 2%;
+    }
+
+    @media (--min-ultrawide) {
+      top: 4%;
+      right: 4%;
     }
   }
 
@@ -169,6 +175,10 @@ import Blob from '@components/Blob.astro';
 
     @media (--min-desktop) {
       right: -12%;
+    }
+
+    @media (--min-ultrawide) {
+      right: -18%;
     }
   }
 
@@ -191,26 +201,21 @@ import Blob from '@components/Blob.astro';
 
     @media (--min-tablet) {
       position: absolute;
-      right: 0;
+      top: 10%;
+      bottom: 10%;
+      right: -10%;
       width: 50%;
       height: auto;
       margin: auto 0;
       aspect-ratio: unset;
-      border-radius: unset;
-      border-top-left-radius: var(--radius);
-    }
-
-    @media (--min-desktop) {
-      top: 10%;
-      bottom: 10%;
-      right: -10%;
-      margin: auto 0;
-      width: 60%;
       border-radius: var(--radius-loose);
     }
 
+    @media (--min-desktop) {
+      width: 60%;
+    }
+
     > img {
-      height: auto;
       object-fit: cover;
       color: var(--color-icterine);
       background-color: currentColor;

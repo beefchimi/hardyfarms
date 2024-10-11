@@ -114,6 +114,25 @@ const currentYear = new Date().getFullYear();
   .InteriorWrapper {
     padding: calc(var(--page-padding-x) * 2) var(--page-padding-x);
     background-color: var(--color-myrtle);
+
+    @media (--min-tablet) {
+      padding-top: 6.4rem;
+      padding-bottom: 6.4rem;
+    }
+
+    @media (--min-desktop) {
+      padding-top: 8rem;
+      padding-bottom: 8rem;
+    }
+
+    @media (--min-wide) {
+      padding-top: 10rem;
+    }
+
+    @media (--min-ultrawide) {
+      padding-top: 14rem;
+      padding-bottom: 10rem;
+    }
   }
 
   .Interior {
